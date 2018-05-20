@@ -7,19 +7,37 @@ import com.jkramr.scbuildit.scbtools.model.SimpleProductionStrategy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class ScbtoolsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ScbtoolsApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(ScbtoolsApplication.class, args);
 
-		HayDayFarm hayDayFarm = new HayDayFarm(42, 18, 18, 10);
+        HayDayFarm hayDayFarm = new HayDayFarm(
+                42,
+                18,
+                18,
+                10,
+                10,
+                5,
+                9
+        );
 
-		ProductionCalculator calculator = new ProductionCalculator(hayDayFarm, new SimpleProductionStrategy());
+        ProductionCalculator calculator = new ProductionCalculator(hayDayFarm, new SimpleProductionStrategy());
 
-		calculator.calculate(new ProductBatch(HayDayFarm.PRODUCT_MILK, 30), new ProductBatch(HayDayFarm.PRODUCT_EGGS, 20));
+        ProductBatch[] neededProducts = {
+                new ProductBatch(HayDayFarm.PRODUCT_MILK, 30),
+                new ProductBatch(HayDayFarm.PRODUCT_EGGS, 20),
+                new ProductBatch(HayDayFarm.PRODUCT_CORN_BREAD, 5)
+        };
 
-		System.out.println(calculator.getProductGraph());
-		System.out.println(calculator.getProductionTimeGraph());
-	}
+        System.out.println("Needed: " + Arrays.toString(neededProducts));
+        calculator.calculate(neededProducts);
+
+        System.out.println(calculator.getProductGraph());
+        System.out.println(calculator.getProductionFactoryGraph());
+        System.out.println(calculator.getProductionTimeGraph());
+    }
 }

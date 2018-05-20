@@ -28,17 +28,19 @@ public class ProductionCalculator {
 
     public void calculate(ProductBatch... products) {
         for (ProductBatch product : products) {
-            calculate(product, 1L);
+            calculate(product, 1L, 0);
         }
 
     }
 
-    private void calculate(ProductBatch batch, Long count) {
+    private void calculate(ProductBatch batch, Long count, int depth) {
         String productKey = batch.getProductKey();
-        productGraph.computeIfAbsent(productKey, (key)
-                -> productGraph.put(key, batch.getAmount() * count));
-        productGraph.computeIfPresent(productKey, (key, amount)
-                -> productGraph.put(key, amount + batch.getAmount() * count));
+        if (depth > 0) {
+            productGraph.computeIfAbsent(productKey, (key)
+                    -> productGraph.put(key, batch.getAmount() * count));
+            productGraph.computeIfPresent(productKey, (key, amount)
+                    -> productGraph.put(key, amount + batch.getAmount() * count));
+        }
 
         Map<String, ProductionConfig> productionConfigMap = farm.getProductionConfigMap();
 
@@ -60,7 +62,7 @@ public class ProductionCalculator {
         Collection<ProductBatch> products = productionConfig.getInput().getProducts();
 
         for (ProductBatch productBatch : products) {
-            calculate(productBatch, batch.getAmount() * count);
+            calculate(productBatch, batch.getAmount() * count, depth + 1);
         }
     }
 
