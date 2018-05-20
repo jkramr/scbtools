@@ -87,7 +87,7 @@ public class HayDayFarm extends Farm {
                 new ProductBatch(PRODUCT_WHEAT, 3),
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
 
-        // Chicken Copp
+        // Chicken Coop
         Factory chickenCoopFactory = new Factory(FACTORY_CHICKEN_COOP, chickenCoopSlots);
         chickenCoopFactory.setConcurrentOutput(chickenCoopSlots);
         chickenCoopFactory.setSingleProduct(true);
