@@ -38,7 +38,6 @@ public class HayDayFarm extends Farm {
     public static final String PRODUCT_CORN_BREAD = "Corn Bread";
 
 
-
     private HashMap<String, String> dictionary;
 
 
@@ -58,32 +57,32 @@ public class HayDayFarm extends Farm {
         fieldFactory.setConcurrentOutput(fieldSlots);
         zeroFactory = fieldFactory;
 
-        registerProduct(fieldFactory, PRODUCT_WHEAT, Duration.ofMinutes(2), 2,
+        registerProduct(fieldFactory, PRODUCT_WHEAT, Duration.ofMinutes(2), 3.0, 2,
                 new ProductBatch(PRODUCT_WHEAT, 1));
-        registerProduct(fieldFactory, PRODUCT_CORN, Duration.ofMinutes(5), 2,
+        registerProduct(fieldFactory, PRODUCT_CORN, Duration.ofMinutes(5), 7.0, 2,
                 new ProductBatch(PRODUCT_CORN, 1));
-        registerProduct(fieldFactory, PRODUCT_CARROT, Duration.ofMinutes(10), 2,
+        registerProduct(fieldFactory, PRODUCT_CARROT, Duration.ofMinutes(10), 7.0, 2,
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
-        registerProduct(fieldFactory, PRODUCT_SOYBEAN, Duration.ofMinutes(20), 2,
+        registerProduct(fieldFactory, PRODUCT_SOYBEAN, Duration.ofMinutes(20), 10.0, 2,
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
 
 
         // Feed Mill
         Factory feedMillFactory = new Factory(FACTORY_FEED_MILL, feedMillSlots);
 
-        registerProduct(feedMillFactory, PRODUCT_CHICKEN_FOOD, Duration.ofMinutes(5), 3,
+        registerProduct(feedMillFactory, PRODUCT_CHICKEN_FOOD, Duration.ofMinutes(5), 7.0, 3,
                 new ProductBatch(PRODUCT_WHEAT, 2),
                 new ProductBatch(PRODUCT_CORN, 1));
 
-        registerProduct(feedMillFactory, PRODUCT_COW_FOOD, Duration.ofMinutes(10), 3,
+        registerProduct(feedMillFactory, PRODUCT_COW_FOOD, Duration.ofMinutes(10), 14.0, 3,
                 new ProductBatch(PRODUCT_CORN, 2),
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
 
-        registerProduct(feedMillFactory, PRODUCT_PIG_FOOD, Duration.ofMinutes(20), 3,
+        registerProduct(feedMillFactory, PRODUCT_PIG_FOOD, Duration.ofMinutes(20), 14.0, 3,
                 new ProductBatch(PRODUCT_CARROT, 2),
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
 
-        registerProduct(feedMillFactory, PRODUCT_SHEEP_FOOD, Duration.ofMinutes(30), 3,
+        registerProduct(feedMillFactory, PRODUCT_SHEEP_FOOD, Duration.ofMinutes(30), 14.0, 3,
                 new ProductBatch(PRODUCT_WHEAT, 3),
                 new ProductBatch(PRODUCT_SOYBEAN, 1));
 
@@ -92,7 +91,7 @@ public class HayDayFarm extends Farm {
         chickenCoopFactory.setConcurrentOutput(chickenCoopSlots);
         chickenCoopFactory.setSingleProduct(true);
 
-        registerProduct(chickenCoopFactory, PRODUCT_EGGS, Duration.ofMinutes(20), 1,
+        registerProduct(chickenCoopFactory, PRODUCT_EGGS, Duration.ofMinutes(20), 18.0, 1,
                 new ProductBatch(PRODUCT_CHICKEN_FOOD, 1));
 
         // Cow Pasture
@@ -100,7 +99,7 @@ public class HayDayFarm extends Farm {
         cowPastureFactory.setConcurrentOutput(cowPastureSlots);
         cowPastureFactory.setSingleProduct(true);
 
-        registerProduct(cowPastureFactory, PRODUCT_MILK, Duration.ofHours(1), 1,
+        registerProduct(cowPastureFactory, PRODUCT_MILK, Duration.ofHours(1), 32.0, 1,
                 new ProductBatch(PRODUCT_COW_FOOD, 1));
 
         // Pig Pen
@@ -108,7 +107,7 @@ public class HayDayFarm extends Farm {
         pigPenFactory.setConcurrentOutput(pigPenSlots);
         pigPenFactory.setSingleProduct(true);
 
-        registerProduct(pigPenFactory, PRODUCT_BACON, Duration.ofHours(4), 1,
+        registerProduct(pigPenFactory, PRODUCT_BACON, Duration.ofHours(4), 50.0, 1,
                 new ProductBatch(PRODUCT_PIG_FOOD, 1));
 
         // Sheep Pasture
@@ -117,21 +116,21 @@ public class HayDayFarm extends Farm {
         sheepPastureFactory.setConcurrentOutput(sheepPastureSlots);
         sheepPastureFactory.setSingleProduct(true);
 
-        registerProduct(sheepPastureFactory, PRODUCT_WOOL, Duration.ofHours(6), 1,
+        registerProduct(sheepPastureFactory, PRODUCT_WOOL, Duration.ofHours(6), 54.0, 1,
                 new ProductBatch(PRODUCT_SHEEP_FOOD, 1));
 
         // Bakery
         Factory bakeryFactory = new Factory(FACTORY_BAKERY, bakerySlots);
 
-        registerProduct(bakeryFactory, PRODUCT_BREAD, Duration.ofMinutes(5), 1,
+        registerProduct(bakeryFactory, PRODUCT_BREAD, Duration.ofMinutes(5), 21.0, 1,
                 new ProductBatch(PRODUCT_WHEAT, 3));
-        registerProduct(bakeryFactory, PRODUCT_CORN_BREAD, Duration.ofMinutes(30), 1,
+        registerProduct(bakeryFactory, PRODUCT_CORN_BREAD, Duration.ofMinutes(30), 72.0, 1,
                 new ProductBatch(PRODUCT_CORN, 2),
                 new ProductBatch(PRODUCT_EGGS, 2));
     }
 
-    private void registerProduct(Factory factory, String productKey, Duration duration, Integer outputAmount, ProductBatch... inputProducts) {
-        registerProductConfig(productKey, outputAmount, duration, inputProducts);
+    private void registerProduct(Factory factory, String productKey, Duration duration, Double maxPrice, Integer outputAmount, ProductBatch... inputProducts) {
+        registerProductConfig(productKey, outputAmount, duration, maxPrice, inputProducts);
         registerProductToFactory(productKey, factory);
     }
 

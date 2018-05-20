@@ -1,6 +1,7 @@
 package com.jkramr.scbuildit.scbtools;
 
 import com.jkramr.scbuildit.scbtools.farms.HayDayFarm;
+import com.jkramr.scbuildit.scbtools.model.EfficiencyCalculator;
 import com.jkramr.scbuildit.scbtools.model.ProductBatch;
 import com.jkramr.scbuildit.scbtools.model.ProductionCalculator;
 import com.jkramr.scbuildit.scbtools.model.SimpleProductionStrategy;
@@ -26,6 +27,7 @@ public class ScbtoolsApplication {
         );
 
         ProductionCalculator calculator = new ProductionCalculator(hayDayFarm, new SimpleProductionStrategy());
+        EfficiencyCalculator efficiencyCalculator= new EfficiencyCalculator(hayDayFarm);
 
         ProductBatch[] neededProducts = {
                 new ProductBatch(HayDayFarm.PRODUCT_MILK, 30),
@@ -35,9 +37,12 @@ public class ScbtoolsApplication {
 
         System.out.println("Needed: " + Arrays.toString(neededProducts));
         calculator.calculate(neededProducts);
+        efficiencyCalculator.calculate();
 
         System.out.println(calculator.getProductGraph());
         System.out.println(calculator.getProductionFactoryGraph());
         System.out.println(calculator.getProductionTimeGraph());
+
+        System.out.println("Efficiency: " + efficiencyCalculator.getEfficiencyMap());
     }
 }

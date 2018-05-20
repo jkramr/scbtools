@@ -12,5 +12,7 @@ public class ProductionConfig {
     @NonNull
     private Duration productionDuration;
     @NonNull
-    private ProductCollection output;
+    private Double price;
+    @NonNull
+    private ProductBatch output;
 }

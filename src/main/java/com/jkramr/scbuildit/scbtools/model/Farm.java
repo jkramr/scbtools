@@ -21,8 +21,8 @@ public abstract class Farm {
         this.productToFactoryMap = new HashMap<>();
     }
 
-    public ProductionConfig registerProductConfig(String product, Integer outputAmount, Duration productinoDuration, ProductBatch... productInput) {
-        ProductionConfig productionConfig = new ProductionConfig(new ProductCollection(productInput), productinoDuration, new ProductCollection(new ProductBatch(product, outputAmount)));
+    public ProductionConfig registerProductConfig(String product, Integer outputAmount, Duration productinoDuration, Double price, ProductBatch... productInput) {
+        ProductionConfig productionConfig = new ProductionConfig(new ProductCollection(productInput), productinoDuration, price, new ProductBatch(product, outputAmount));
         productionConfigMap.put(product, productionConfig);
         return productionConfig;
     }
