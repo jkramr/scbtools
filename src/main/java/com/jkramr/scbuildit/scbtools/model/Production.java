@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@ToString(exclude = {"factory", "config"})
+@ToString(of = {"batches"}, includeFieldNames = false)
 public class Production {
 
     private final Factory factory;
