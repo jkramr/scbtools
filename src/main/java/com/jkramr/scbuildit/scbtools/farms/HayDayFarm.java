@@ -35,7 +35,8 @@ public class HayDayFarm extends Farm {
         // Field
         dictionary.put(FACTORY_FIELD, "Field");
 
-        Factory fieldFactory = new Factory(FACTORY_FIELD, fieldSlots, fieldSlots);
+        Factory fieldFactory = new Factory(FACTORY_FIELD, fieldSlots);
+        fieldFactory.setConcurrentOutput(fieldSlots);
         zeroFactory = fieldFactory;
 
         registerProduct(fieldFactory, PRODUCT_WHEAT, "Wheat",Duration.ofMinutes(2), 2,
@@ -51,7 +52,7 @@ public class HayDayFarm extends Farm {
         // Feed Mill
         dictionary.put(FACTORY_FEED_MILL, "Feed Mill");
 
-        Factory feedMillFactory = new Factory(FACTORY_FEED_MILL, feedMillSlots, 2);
+        Factory feedMillFactory = new Factory(FACTORY_FEED_MILL, feedMillSlots);
 
         registerProduct(feedMillFactory, PRODUCT_CHICKEN_FOOD, "Chicken Food", Duration.ofMinutes(10), 3,
                 new ProductBatch(PRODUCT_WHEAT, 2),
@@ -65,15 +66,19 @@ public class HayDayFarm extends Farm {
         // Chicken Coup
         dictionary.put(FACTORY_CHICKEN_COOP, "Chicken Coop");
 
-        Factory chickenCoupFactory = new Factory(FACTORY_CHICKEN_COOP, chickenCoopSlots, chickenCoopSlots);
+        Factory chickenCoopFactory = new Factory(FACTORY_CHICKEN_COOP, chickenCoopSlots);
+        chickenCoopFactory.setConcurrentOutput(chickenCoopSlots);
+        chickenCoopFactory.setSingleProduct(true);
 
-        registerProduct(chickenCoupFactory, PRODUCT_EGGS, "Eggs", Duration.ofMinutes(20), 1,
+        registerProduct(chickenCoopFactory, PRODUCT_EGGS, "Eggs", Duration.ofMinutes(20), 1,
                 new ProductBatch(PRODUCT_CHICKEN_FOOD, 1));
 
         // Cow Pasture
         dictionary.put(FACTORY_COW_PASTURE, "Cow Pasture");
 
-        Factory cowPastureFactory = new Factory(FACTORY_COW_PASTURE, cowPastureSlots, cowPastureSlots);
+        Factory cowPastureFactory = new Factory(FACTORY_COW_PASTURE, cowPastureSlots);
+        cowPastureFactory.setConcurrentOutput(cowPastureSlots);
+        cowPastureFactory.setSingleProduct(true);
 
         registerProduct(cowPastureFactory, PRODUCT_MILK, "Milk", Duration.ofHours(1), 1,
                 new ProductBatch(PRODUCT_COW_FOOD, 1));

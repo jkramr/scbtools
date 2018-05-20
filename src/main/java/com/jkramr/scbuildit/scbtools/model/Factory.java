@@ -10,6 +10,6 @@ public class Factory {
     private String name;
     @NonNull
     private Integer totalSlots;
-    @NonNull
-    private Integer concurrentOutput;
+    private Integer concurrentOutput = 1;
+    private boolean isSingleProduct = false;
 }
